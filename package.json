@@ -1,0 +1,27 @@
+{
+  "name": "type-a-bot-analytics",
+  "version": "1.0.0",
+  "private": true,
+  "description": "Type A Bot Analytics: count AI bot visits and link shares with a Cloudflare Worker, and see them on a self-host dashboard.",
+  "license": "MIT",
+  "type": "module",
+  "scripts": {
+    "tables": "node scripts/build-tables.mjs",
+    "test": "npm run tables && node --test --no-warnings test/*.test.js",
+    "lint": "eslint . && prettier --check .",
+    "format": "prettier --write .",
+    "deploy:dashboard": "cd dashboard && wrangler deploy && wrangler d1 migrations apply DB --remote",
+    "deploy:rule": "cd rule && wrangler deploy"
+  },
+  "devDependencies": {
+    "@eslint/js": "^10.0.1",
+    "eslint": "^10.15.0",
+    "globals": "^17.14.0",
+    "prettier": "^3.6.0",
+    "wrangler": "^4.165.0",
+    "yaml": "^2.8.0"
+  },
+  "engines": {
+    "node": ">=22.5"
+  }
+}

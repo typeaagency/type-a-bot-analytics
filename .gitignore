@@ -1,0 +1,5 @@
+node_modules/
+src/tables.js
+.wrangler/
+.dev.vars
+dist/

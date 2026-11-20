@@ -1,0 +1,22 @@
+# Copied from Type A's own repo by a CI step. Do not edit it here: a change
+# comes as a pull request from that step.
+#   training      - collects pages to train a model
+#   search_index  - builds an AI search index
+#   user_fetch    - reads a page the moment a person asks
+training:
+  - { name: GPTBot }
+  - { name: ClaudeBot }
+  - { name: CCBot }
+  - { name: Bytespider }
+  - { name: Meta-ExternalAgent }
+  - { name: Amazonbot }
+search_index:
+  - { name: OAI-SearchBot }
+  - { name: Claude-SearchBot }
+  - { name: PerplexityBot }
+user_fetch:
+  - { name: ChatGPT-User }
+  - { name: Claude-User }
+  - { name: Perplexity-User }
+  - { name: MistralAI-User }
+  - { name: Meta-ExternalFetcher }

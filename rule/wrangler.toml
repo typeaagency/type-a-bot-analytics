@@ -1,0 +1,19 @@
+# The counting rule. Put your site's routes below, set DASHBOARD_URL to your
+# dashboard's address, then `npm run deploy:rule`.
+name = "bot-analytics-rule"
+main = "../src/rule.js"
+compatibility_date = "2026-11-01"
+workers_dev = false
+
+# One route for each host to count. Leave the failure mode at "Fail open" in
+# the Cloudflare dashboard, so your site never depends on this Worker.
+routes = [
+  { pattern = "example.com/*", zone_name = "example.com" },
+]
+
+[vars]
+DASHBOARD_URL = "https://bot-analytics-dashboard.<your-subdomain>.workers.dev"
+
+[build]
+command = "node ../scripts/build-tables.mjs"
+watch_dir = ["../src", "../tables"]

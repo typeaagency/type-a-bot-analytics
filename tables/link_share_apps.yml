@@ -1,0 +1,15 @@
+# Copied from Type A's own repo by a CI step. Do not edit it here: a change
+# comes as a pull request from that step.
+#   match: any - one token is enough; all - every token must be there
+- { name: "iMessage", match: all, tokens: [ facebookexternalhit, Facebot, Twitterbot ] }
+- { name: "Facebook / Messenger / Instagram", match: any, tokens: [ facebookexternalhit ] }
+- { name: "X", match: any, tokens: [ Twitterbot ] }
+- { name: "LinkedIn", match: any, tokens: [ LinkedInBot ] }
+- { name: "Slack", match: any, tokens: [ Slackbot-LinkExpanding ] }
+- { name: "Teams", match: any, tokens: [ SkypeUriPreview ] }
+- { name: "WhatsApp", match: any, tokens: [ WhatsApp ] }
+- { name: "Discord", match: any, tokens: [ Discordbot ] }
+- { name: "Telegram", match: any, tokens: [ TelegramBot ] }
+- { name: "Bluesky", match: any, tokens: [ Cardyb ] }
+- { name: "Reddit", match: any, tokens: [ redditbot ] }
+- { name: "Pinterest", match: any, tokens: [ Pinterest/ ] }

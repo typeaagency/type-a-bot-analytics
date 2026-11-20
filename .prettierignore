@@ -1,0 +1,5 @@
+tables/
+src/tables.js
+package-lock.json
+**/.wrangler/
+dist/

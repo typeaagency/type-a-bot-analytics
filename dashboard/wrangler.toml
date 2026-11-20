@@ -1,0 +1,15 @@
+# The self-host dashboard. `npm run deploy:dashboard` deploys it, makes the D1
+# database on the first deploy, and applies the migrations.
+name = "bot-analytics-dashboard"
+main = "../src/dashboard.js"
+compatibility_date = "2026-11-01"
+workers_dev = true
+
+[build]
+command = "node ../scripts/build-tables.mjs"
+watch_dir = ["../src", "../tables"]
+
+[[d1_databases]]
+binding = "DB"
+database_name = "bot-analytics"
+migrations_dir = "migrations"
