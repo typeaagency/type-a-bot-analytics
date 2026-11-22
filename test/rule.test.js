@@ -45,6 +45,22 @@ test("an iMessage preview is sent as a link share", async () => {
   assert.equal(JSON.parse(hit.init.body).kind, "link_share");
 });
 
+test("a dashboard in the same account takes the hit through the service binding", async () => {
+  const bound = [];
+  const DASHBOARD = { fetch: async (target, init) => (bound.push({ url: String(target), init }), new Response("ok")) };
+  const answer = await rule.fetch(visit(UA.gptbot), { ...env, DASHBOARD }, ctx);
+  await Promise.all(waited);
+  assert.equal(await answer.text(), "page");
+  assert.deepEqual(
+    calls.map((call) => call.url),
+    ["https://example.com/blog/post?x=1"],
+  );
+  assert.equal(bound.length, 1);
+  assert.equal(new URL(bound[0].url).pathname, "/hit");
+  assert.equal(bound[0].init.headers.Authorization, "Bearer secret-token");
+  assert.equal(JSON.parse(bound[0].init.body).kind, "ai_bot");
+});
+
 test("a browser, a POST, or a rule with no dashboard sends no hit", async () => {
   await rule.fetch(visit(UA.chrome), env, ctx);
   await rule.fetch(visit(UA.gptbot, "POST"), env, ctx);

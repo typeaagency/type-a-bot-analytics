@@ -51,8 +51,9 @@ export function page({ days, since, agents, apps, pages }) {
   .n { font-variant-numeric: tabular-nums; text-align: right; }
   table { width: 100%; border-collapse: collapse; font-size: 14px; }
   th, td { padding: 8px 0; border-bottom: 1px solid var(--line); text-align: left; } th.n { text-align: right; }
-  td.path { overflow-wrap: break-word; padding-right: 16px; }
-  th { white-space: nowrap; padding-left: 12px; } th:first-child { padding-left: 0; }
+  td.path { overflow-wrap: anywhere; padding-right: 16px; }
+  th { padding-left: 12px; } th:first-child { padding-left: 0; } th.n { width: 1%; }
+  .scroll { overflow-x: auto; }
   .card > :last-child { margin-bottom: 0; }
   footer { margin-top: 40px; font-size: 13px; color: var(--muted); }
 </style>
@@ -69,7 +70,7 @@ export function page({ days, since, agents, apps, pages }) {
 <h2>Link shares by app</h2>
 <section class="card">${bars(apps, "No link shares")}</section>
 <h2>Top pages</h2>
-${pageRows ? `<table><thead><tr><th>Page</th><th class="n">AI bot visits</th><th class="n">Link shares</th></tr></thead><tbody>${pageRows}</tbody></table>` : `<p class="muted">No visits</p>`}
+${pageRows ? `<div class="scroll"><table><thead><tr><th>Page</th><th class="n">AI bot visits</th><th class="n">Link shares</th></tr></thead><tbody>${pageRows}</tbody></table></div>` : `<p class="muted">No visits</p>`}
 <footer>Type A Bot Analytics, self-hosted. The hosted version: <a href="https://report.typeamedia.net">report.typeamedia.net</a> · <a href="https://typeamedia.net">typeamedia.net</a></footer>
 </body>
 </html>`;
