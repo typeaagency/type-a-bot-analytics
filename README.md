@@ -61,10 +61,9 @@ cd ..
 
 ### 2. Deploy the rule
 
-Edit `rule/wrangler.toml`:
+In `rule/wrangler.toml`, put one route in `routes` for each host that you want to count, for example `{ pattern = "www.example.com/*", zone_name = "example.com" }`.
 
-- In `routes`, put one route for each host that you want to count, for example `{ pattern = "www.example.com/*", zone_name = "example.com" }`.
-- Set `DASHBOARD_URL` to the dashboard's address from step 1.
+The rule sends each hit to the dashboard through a service binding (`DASHBOARD`). This needs no address, and it works because both Workers are in the same account. A rule cannot reach a `workers.dev` address of its own account with a plain fetch (Cloudflare error 1042). If your dashboard is in a different account, remove `services` and set `DASHBOARD_URL` to its address.
 
 Then deploy it, and give it the same hit token:
 
@@ -83,6 +82,8 @@ curl -s -o /dev/null -A "facebookexternalhit/1.1 Facebot Twitterbot/1.0" https:/
 ```
 
 Open the dashboard. It shows one GPTBot visit under Training and one iMessage share.
+
+Test the rule on a route of your own zone, not on a `workers.dev` address. On `workers.dev` the rule has no origin, so its fetch of the page calls the rule again, and one curl counts many times.
 
 ## Cost
 

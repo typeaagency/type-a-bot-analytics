@@ -1,5 +1,5 @@
-# The counting rule. Put your site's routes below, set DASHBOARD_URL to your
-# dashboard's address, then `npm run deploy:rule`.
+# The counting rule. Put your site's routes below, then `npm run deploy:rule`.
+# Deploy the dashboard first: the service binding below names it.
 name = "bot-analytics-rule"
 main = "../src/rule.js"
 compatibility_date = "2026-11-01"
@@ -11,8 +11,17 @@ routes = [
   { pattern = "example.com/*", zone_name = "example.com" },
 ]
 
-[vars]
-DASHBOARD_URL = "https://bot-analytics-dashboard.<your-subdomain>.workers.dev"
+# The rule sends each hit to the dashboard Worker of the same account. A
+# fetch to a workers.dev address of the same account fails, so use this
+# binding, not the dashboard's URL.
+services = [
+  { binding = "DASHBOARD", service = "bot-analytics-dashboard" },
+]
+
+# Only for a dashboard in a different Cloudflare account: remove `services`
+# above and set its address here.
+# [vars]
+# DASHBOARD_URL = "https://bot-analytics-dashboard.<your-subdomain>.workers.dev"
 
 [build]
 command = "node ../scripts/build-tables.mjs"
